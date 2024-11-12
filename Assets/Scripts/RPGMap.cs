@@ -10,42 +10,54 @@ public class RPGMap : MonoBehaviour
     public Tile Ground;
     public Tile Wall;
 
-    public int[,] Map = new int[15, 15];
+    
+    public int[,] Map = new int[16, 16];
 
     int x;
     int y;
 
     int rand;
-    int count;
+    
     // Start is called before the first frame update
     void Start()
     {
-        rand = UnityEngine.Random.RandomRange(0, 2);
+        
         TryGetComponent<Tilemap>(out MyTileMap);
         //Map[x, y] = rand;
         for (int x = 0; x < Map.GetLength(0); x++)
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-
                 DrawMap();
-                
+                ruleBorder();
+
 
             }
         }
+    }
+    // Update is called once per frame
+    void Update()
+    {
         
     }
-    void rule()
+
+    void ruleBorder()
     {
+
         for (int x = 0; x < Map.GetLength(0); x++)
         {
+            
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x,y] < 0 )
+                if (x == 0 || x == Map.GetLength(0) -1 || y == 0 || y == Map.GetLength(1)-1)
+                 //if x equal 0 or x equal map length(x) with a length of 16 -1 so I don't go out of array
+                 // and doing the same with y 
                 {
-                    MyTileMap.SetTile(new Vector3Int(x, y, 0), Wall);
-
+                    Map[x, y] = 1;  // Set border tiles to walls
+                    Debug.Log($"Wall at {x}, {y}");
                 }
+
+
 
 
             }
@@ -57,7 +69,7 @@ public class RPGMap : MonoBehaviour
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                if (Map[x, y] == 1)
+                if (Map[x,y] == 1)
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), Wall);
                 }
@@ -67,26 +79,9 @@ public class RPGMap : MonoBehaviour
                 }
             }
         }
-    }
-
-    int neighgbours(int x, int y)
-    {
-        count = 0;
-        for (int check_x = -1; check_x < Map.GetLength(0); check_x++)
-        {
-            for (int check_y = -1; check_y < Map.GetLength(1); check_y++)
-            {
-                if (Map[x,y] == 1)
-                {
-
-                }
-            }
-        }
-        return count;
-    }
-    // Update is called once per frame
-    void Update()
-    {
         
     }
+
+    
+    
 }

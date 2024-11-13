@@ -9,8 +9,8 @@ public class RPGMap : MonoBehaviour
 
     public TileBase Ground;
     public TileBase Wall;
+    public TileBase Player;
 
-    public GameObject Player;
     
     public int[,] Map = new int[20, 20];
 
@@ -30,8 +30,8 @@ public class RPGMap : MonoBehaviour
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
-                DrawMap();
-                ruleBorder();
+                drawMap();
+                
 
 
             }
@@ -42,13 +42,22 @@ public class RPGMap : MonoBehaviour
     void Update()
     {
         
+        PlayerController();
+    }
+
+
+    void randRule()
+    {
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+                
+            }
+        }
     }
     
-
-    void Rule()
-    {
-        
-    }
     void ruleBorder()
     {
 
@@ -71,7 +80,7 @@ public class RPGMap : MonoBehaviour
             }
         }
     }
-    void DrawMap()
+    void drawMap()
     {
         for (int x = 0; x < Map.GetLength(0); x++)
         {
@@ -81,15 +90,47 @@ public class RPGMap : MonoBehaviour
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), Wall);
                 }
-                else
+                else if (Map[x, y] == 0)
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), Ground);
                 }
             }
         }
-        
+        ruleBorder();
     }
-
-    
+    string GenerateMapString(int Width, int Height)
+    {
+        return;
+    }
+    void PlayerController()
+    {
+        MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            
+            y++;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x, y - 1, 0), Ground);
+            
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            x--;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x + 1, y, 0), Ground);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            y--;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x, y + 1, 0), Ground);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            x++;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x - 1, y, 0), Ground);
+        }
+    }
     
 }

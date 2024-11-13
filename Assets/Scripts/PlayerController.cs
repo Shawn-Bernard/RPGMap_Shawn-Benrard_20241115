@@ -7,25 +7,46 @@ public class PlayerController : MonoBehaviour
 {
     public Tilemap MyTileMap;
 
-    public TileBase Player;
-    int x;
-    int y;
+    public Tile Player;
+    int x = 5;
+    int y = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        TryGetComponent<Tilemap>(out MyTileMap);
-        MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            //Player  -1;
+            y++;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x , y-1, 0), null);
         }
-        
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            x--;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x +1, y, 0), null);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            y--;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x , y+1, 0), null);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            x++;
+            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+            MyTileMap.SetTile(new Vector3Int(x -1, y, 0), null);
+        }
+
     }
     
 }

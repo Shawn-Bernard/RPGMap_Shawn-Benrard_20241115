@@ -7,16 +7,18 @@ public class RPGMap : MonoBehaviour
 {
     public Tilemap MyTileMap;
 
-    public Tile Ground;
-    public Tile Wall;
+    public TileBase Ground;
+    public TileBase Wall;
 
+    public GameObject Player;
     
-    public int[,] Map = new int[16, 16];
+    public int[,] Map = new int[20, 20];
 
     int x;
     int y;
 
     int rand;
+
     
     // Start is called before the first frame update
     void Start()
@@ -34,13 +36,19 @@ public class RPGMap : MonoBehaviour
 
             }
         }
+        
     }
     // Update is called once per frame
     void Update()
     {
         
     }
+    
 
+    void Rule()
+    {
+        
+    }
     void ruleBorder()
     {
 
@@ -54,7 +62,7 @@ public class RPGMap : MonoBehaviour
                  // and doing the same with y 
                 {
                     Map[x, y] = 1;  // Set border tiles to walls
-                    Debug.Log($"Wall at {x}, {y}");
+                    //Debug.Log($"Wall at {x}, {y}");
                 }
 
 

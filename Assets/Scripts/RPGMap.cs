@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -16,6 +17,8 @@ public class RPGMap : MonoBehaviour
 
     int x;
     int y;
+    int playerX = 1;
+    int playerY = 1;
 
     int rand;
 
@@ -98,39 +101,58 @@ public class RPGMap : MonoBehaviour
         }
         ruleBorder();
     }
-    string GenerateMapString(int Width, int Height)
+    string GenerateMapString(int x, int y)
     {
-        return;
+        char[,] Words = new char[x,y];
+        for (x = 0; x < Map.GetLength(0); x++)
+        {
+            for (y = 0; y < Map.GetLength(1); y++)
+            {
+                if (Map[x, y] == 1)
+                {
+                    MyTileMap.SetTile(new Vector3Int(x, y, 0), Wall);
+                }
+                else if (Map[x, y] == 0)
+                {
+                    MyTileMap.SetTile(new Vector3Int(x, y, 0), Ground);
+                }
+            }
+        }
+        return GenerateMapString(x, y);
     }
     void PlayerController()
     {
-        MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            
-            y++;
-            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
-            MyTileMap.SetTile(new Vector3Int(x, y - 1, 0), Ground);
-            
-        }
-        else if (Input.GetKeyDown(KeyCode.A))
-        {
-            x--;
-            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
-            MyTileMap.SetTile(new Vector3Int(x + 1, y, 0), Ground);
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            y--;
-            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
-            MyTileMap.SetTile(new Vector3Int(x, y + 1, 0), Ground);
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            x++;
-            MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
-            MyTileMap.SetTile(new Vector3Int(x - 1, y, 0), Ground);
-        }
+        
+        MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Player);
+        if (Input.GetKeyDown(KeyCode.W) && Map[playerX, playerY + 1] != 1)
+            //W pressed & checking above player is not equal to 1 
+            {
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Ground);
+            //placing ground tile on player
+            playerY++;
+            //Moving playerY up one 
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Player);
+            //Placing player tile at new playerY 
+            }
+            else if (Input.GetKeyDown(KeyCode.A) && Map[playerX-1,playerY] != 1)
+            {
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Ground);
+            playerX--;
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Player);
+            }
+            else if (Input.GetKeyDown(KeyCode.S) && Map[playerX, playerY-1] != 1)
+            {
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Ground);
+            playerY--;
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Player);
+            }
+            else if (Input.GetKeyDown(KeyCode.D) && Map[playerX+1, playerY] != 1)
+            {
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Ground);
+            playerX++;
+            MyTileMap.SetTile(new Vector3Int(playerX, playerY, 0), Player);
+            }
+        
     }
     
 }

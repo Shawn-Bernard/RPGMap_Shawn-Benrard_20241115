@@ -13,7 +13,7 @@ public class TextFile : MonoBehaviour
         int count = 0;
         for (int y = 0; y < lines.Length; y++)
         {
-            string lines = lines[y];
+            //string lines = lines[y];
         }
     }
 

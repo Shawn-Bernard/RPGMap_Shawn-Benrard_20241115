@@ -9,7 +9,7 @@ public class TextFile : MonoBehaviour
     public char[,] Map = new char[20, 20];
     private int Width;
     private int Height;
-    string Wall;
+    char wall = '#';
     // Start is called before the first frame update
     void Start()
     {
@@ -36,10 +36,14 @@ public class TextFile : MonoBehaviour
 
         for (int x = 0; x < lines.Length; x++)
         {
+            Debug.Log(lines.GetValue(x));
             for (int y = 0; y < lines.Length; y++)
             {
-                Debug.Log(lines.GetValue(x));
+                Width++;
+                Height++;
                 Debug.Log(lines.GetValue(y));
+                Debug.Log(lines.GetValue(Width));
+                Debug.Log(lines.GetValue(Height));
                 lines.GetValue(x);
                 Debug.Log(lines.GetValue(lines.GetLength(0)));
 

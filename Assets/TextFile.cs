@@ -20,36 +20,22 @@ public class TextFile : MonoBehaviour
         string[] lines = File.ReadAllLines(Path);
 
         //string[] map = new string[20, 20];
-        Width = lines.Length;
-        Height = lines.Length;
-        char[,] Map = new char[Width, Height];
         
-        Debug.Log("Map " +Map.GetValue(Width));
-        Debug.Log(lines.GetValue(0));
-
+        
         for (int x = 0; x < lines.Length; x++)
         {
-            //Map.SetValue(lines.GetValue(x), Map.Length);
-            //lines.SetValue(lines.GetValue(x),Width);
-
-            Map.SetValue(lines.GetValue(x), Width);
-            Debug.Log("Map " + Map.GetValue(Width));
-
+            
             for (int y = 0; y < lines.Length; y++)
             {
-
-                //Debug.Log($"x{x}");
-                //Debug.Log($"y{y}");
             }
         }
-        Debug.Log($"Width {Width}");
+        thing(lines[0].Length,lines.Length);
         Debug.Log($"Width {Width}");
         Debug.Log($"Height {Height}");
-        Debug.Log(wallcount);
-        Debug.Log(lines.Length);
+        Debug.Log(thing(lines[0].Length, lines.Length));
     }
 
-    void thing(int Width, int Height)
+    string thing(int Width, int Height)
     {
 
         char[,] Map = new char[Width, Height];
@@ -62,6 +48,8 @@ public class TextFile : MonoBehaviour
 
             }
         }
+        string mapdata = Map.ToString();
+        return mapdata;
 
     }
     // Update is called once per frame

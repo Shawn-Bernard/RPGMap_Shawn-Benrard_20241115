@@ -33,8 +33,8 @@ public class RPGMap : MonoBehaviour
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
+
                 drawMap();
-                
 
 
             }
@@ -49,17 +49,7 @@ public class RPGMap : MonoBehaviour
     }
 
 
-    void randRule()
-    {
-        for (int x = 0; x < Map.GetLength(0); x++)
-        {
-
-            for (int y = 0; y < Map.GetLength(1); y++)
-            {
-                
-            }
-        }
-    }
+    
     
     void ruleBorder()
     {
@@ -76,10 +66,6 @@ public class RPGMap : MonoBehaviour
                     Map[x, y] = 1;  // Set border tiles to walls
                     //Debug.Log($"Wall at {x}, {y}");
                 }
-
-
-
-
             }
         }
     }
@@ -89,6 +75,7 @@ public class RPGMap : MonoBehaviour
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
+                
                 if (Map[x,y] == 1)
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), Wall);
@@ -99,7 +86,7 @@ public class RPGMap : MonoBehaviour
                 }
             }
         }
-        ruleBorder();
+        //ruleBorder();
     }
     string GenerateMapString(int x, int y)
     {
@@ -115,6 +102,10 @@ public class RPGMap : MonoBehaviour
                 else if (Map[x, y] == 0)
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), Ground);
+                }
+                else if (Map[x,y] == 2)
+                {
+
                 }
             }
         }

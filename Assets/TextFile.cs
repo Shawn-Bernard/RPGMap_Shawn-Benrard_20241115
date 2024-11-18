@@ -3,59 +3,67 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEditor.U2D.Aseprite;
+using UnityEditor;
+using System;
 
 public class TextFile : MonoBehaviour
 {
-    public char[,] Map = new char[20, 20];
+
     private int Width;
     private int Height;
-    char wall = '#';
+    char[] arr = { '#' };
+    int wallcount;
     // Start is called before the first frame update
     void Start()
     {
         string Path = $"{Application.dataPath}/Level.txt";
         string[] lines = File.ReadAllLines(Path);
 
+        //string[] map = new string[20, 20];
+        Width = lines.Length;
+        Height = lines.Length;
+        char[,] Map = new char[Width, Height];
+        
+        Debug.Log("Map " +Map.GetValue(Width));
+        Debug.Log(lines.GetValue(0));
 
         for (int x = 0; x < lines.Length; x++)
         {
+            //Map.SetValue(lines.GetValue(x), Map.Length);
+            //lines.SetValue(lines.GetValue(x),Width);
+
+            Map.SetValue(lines.GetValue(x), Width);
+            Debug.Log("Map " + Map.GetValue(Width));
+
             for (int y = 0; y < lines.Length; y++)
             {
-                
-                //if (x == lines.Length)
-                //{
-                //    Width++;
-                //}
-                //if (y == 0)
-                //{
-                //    Height++;
-                //}
-                
+
+                //Debug.Log($"x{x}");
+                //Debug.Log($"y{y}");
             }
         }
-
-        for (int x = 0; x < lines.Length; x++)
-        {
-            Debug.Log(lines.GetValue(x));
-            for (int y = 0; y < lines.Length; y++)
-            {
-                Width++;
-                Height++;
-                Debug.Log(lines.GetValue(y));
-                Debug.Log(lines.GetValue(Width));
-                Debug.Log(lines.GetValue(Height));
-                lines.GetValue(x);
-                Debug.Log(lines.GetValue(lines.GetLength(0)));
-
-
-
-            }
-        }
-        Debug.Log($"Height {Height}");
         Debug.Log($"Width {Width}");
-        Debug.Log($"{Map.Length}");
+        Debug.Log($"Width {Width}");
+        Debug.Log($"Height {Height}");
+        Debug.Log(wallcount);
+        Debug.Log(lines.Length);
     }
 
+    void thing(int Width, int Height)
+    {
+
+        char[,] Map = new char[Width, Height];
+        char[] tiles = { '#',' '};
+        for (int x = 0; x < Map.GetLength(0); x++)
+        {
+
+            for (int y = 0; y < Map.GetLength(1); y++)
+            {
+
+            }
+        }
+
+    }
     // Update is called once per frame
     void Update()
     {

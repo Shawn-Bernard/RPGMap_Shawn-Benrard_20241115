@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
+using UnityEditor.U2D.Aseprite;
 
 public class Test : MonoBehaviour
 {
@@ -11,13 +12,8 @@ public class Test : MonoBehaviour
 
     public TileBase groundTile;
     public TileBase wallTile;
-    char Wall = '#';
-    char Ground = ' ';
     int Width;
     int Height;
-    int x;
-    int y;
-    string[] lines = File.ReadAllLines($"{Application.dataPath}/Level.txt");
 
 
     // Start is called before the first frame update
@@ -28,7 +24,7 @@ public class Test : MonoBehaviour
 
         TryGetComponent<Tilemap>(out MyTileMap);
         //LoadPremadeMap($"{Application.dataPath}/Level.txt");
-        ConvertMapToTilemap(File.ReadAllLines($"{Application.dataPath}/Level.txt"));
+        LoadPremadeMap($"{Application.dataPath}/Level.txt");
 
 
     }
@@ -39,75 +35,67 @@ public class Test : MonoBehaviour
         
     }
     
-    void ConvertMapToTilemap(string [] mapData)
-    {
-        char[,] Map = new char[Width, Height];
-        for (int x = 0; x < mapData.Length; x++)
-        {
-
-            Width = +x;
-            for (int y = 0; y < mapData.Length; y++)
-            {
-                if (y == 0)
-                {
-                    Height++;
-                }
-
-
-            }
-
-        }
-        MapString(Width, Height);
-    }
+    
     
     
     string MapString(int Width, int Height)
     {
         
         char[,] Map = new char[Width, Height];
-        
+        Debug.Log(Width);
+        Debug.Log(Height);
+        string tile = " ";
+
         for (int x = 0; x < Map.GetLength(0); x++)
         {
             for (int y = 0; y < Map.GetLength(1); y++)
             {
 
-                if (Map[x, y] == Wall)
+                if (Map[x, y] == '#')
                 {
+                    tile = "#";
+                }
+                else if (Map[x, y] == ' ')
+                {
+                    tile = " ";
+                }
+            }
+        }
+        
+        return tile;
+    }
+    
+    void ConvertMapToTilemap(string mapData)
+    {
+        for (int x = 0; x < mapData[0]; x++)
+        {
+
+            for (int y = 0; y < mapData[0] -1; y++)
+            {
+                if (mapData == "#")
+                {
+                    //Debug.Log("Ive placed a wall");
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), wallTile);
                 }
-                else if (Map[x, y] == Ground)
+                else if (mapData == " ")
                 {
+                    //Debug.Log("Ive placed a ground");
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), groundTile);
                 }
             }
         }
-        for (int x = 0; x < Map.GetLength(0); x++)
-        {
+        
 
-            for (int y = 0; y < Map.GetLength(1); y++)
-            {
-                if (x == 0 || x == Map.GetLength(0) - 1 || y == 0 || y == Map.GetLength(1) - 1)
-                //if x equal 0 or x equal map length(x) with a length of 16 -1 so I don't go out of array
-                // and doing the same with y 
-                {
-                    Map[x, y] = Wall;  // Set border tiles to walls
-                    //Debug.Log($"Wall at {x}, {y}");
-                }
-                else
-                {
-                    Map[x, y] = Ground;
-                }
-            }
-        }
-        return MapString(Width, Height);
+
     }
 
     void LoadPremadeMap(string Path)
     {
-        string[] mapData = File.ReadAllLines(Path);
         
-
-
+        string[] lines = File.ReadAllLines(Path);
+        Width = lines[0].Length;
+        Height = lines.Length;
+        string mapData = MapString(Width, Height);
         ConvertMapToTilemap(mapData);
 
     }

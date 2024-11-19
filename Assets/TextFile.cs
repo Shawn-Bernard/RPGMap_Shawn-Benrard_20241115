@@ -20,26 +20,22 @@ public class TextFile : MonoBehaviour
         string[] lines = File.ReadAllLines(Path);
 
         //string[] map = new string[20, 20];
-        Width = lines.Length;
-        Height = lines.Length;
-        char[,] Map = new char[Width, Height];
-        
-        Debug.Log("Map " +Map.GetValue(Width));
-        Debug.Log(lines.GetValue(0));
+
+        Debug.Log(lines[0].Length);
+        Debug.Log(lines.Length);
 
         for (int x = 0; x < lines.Length; x++)
         {
-            //Map.SetValue(lines.GetValue(x), Map.Length);
-            //lines.SetValue(lines.GetValue(x),Width);
-
-            Map.SetValue(lines.GetValue(x), Width);
-            Debug.Log("Map " + Map.GetValue(Width));
-
             for (int y = 0; y < lines.Length; y++)
             {
-
-                //Debug.Log($"x{x}");
-                //Debug.Log($"y{y}");
+                if (lines[x].Length  < lines[0].Length)
+                {
+                    Width++;
+                }
+                if (lines[y].Length < lines.Length)
+                {
+                    Height++;
+                }
             }
         }
         Debug.Log($"Width {Width}");

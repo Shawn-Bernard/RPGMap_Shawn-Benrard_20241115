@@ -105,7 +105,7 @@ public class RPGMap : MonoBehaviour
                 }
                 else if (Map[x,y] == 2)
                 {
-                    MyTileMap.SetTile(new Vector3Int(x, y, 0), Player);
+
                 }
             }
         }

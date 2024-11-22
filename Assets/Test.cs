@@ -12,12 +12,9 @@ public class Test : MonoBehaviour
 
     public TileBase groundTile;
     public TileBase wallTile;
-
     string tile;
     
 
-    int Width;
-    int Height;
 
 
     // Start is called before the first frame update
@@ -28,9 +25,6 @@ public class Test : MonoBehaviour
         TryGetComponent<Tilemap>(out MyTileMap);
         ConvertMapToTilemap($"{Application.dataPath}/Level.txt");
         //LoadPremadeMap($"{Application.dataPath}/Level.txt");
-
-        LoadPremadeMap($"{Application.dataPath}/Level.txt");
-
 
 
     }
@@ -68,33 +62,10 @@ public class Test : MonoBehaviour
             {
                 if (mapData.Length == '#')
                 {
-                    tile = "#";
-                }
-                else if (Map[x, y] == ' ')
-                {
-                    tile = " ";
-                }
-            }
-        }
-        
-        return tile;
-    }
-    
-    void ConvertMapToTilemap(string mapData)
-    {
-        for (int x = 0; x < mapData[0]; x++)
-        {
-
-            for (int y = 0; y < mapData[0] -1; y++)
-            {
-                if (mapData == "#")
-                {
-                    //Debug.Log("Ive placed a wall");
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), wallTile);
                 }
                 else if (mapData.Length == ' ')
                 {
-                    //Debug.Log("Ive placed a ground");
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), groundTile);
                 }
 

@@ -20,10 +20,11 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
         TryGetComponent<Tilemap>(out MyTileMap);
-        ConvertMapToTilemap($"{Application.dataPath}/Level.txt");
+
+
+
+        LoadPremadeMap($"{Application.dataPath}/Level.txt");
         //LoadPremadeMap($"{Application.dataPath}/Level.txt");
 
 
@@ -34,37 +35,22 @@ public class Test : MonoBehaviour
     {
 
     }
-
-
-
-
-    string MapString(int Width, int Height)
-    {
-
-        char[,] Map = new char[Width, Height];
-        char Wall = '#';
-        char Ground = ' ';
-        string tile = string.Empty;
-        Debug.Log(Map.GetValue(Width));
-        tile = string.Empty;
-        if (Width == Wall)
-        {
-
-        }
-
-
-    }
     void ConvertMapToTilemap(string mapData)
     {
-        for (int x = 0; x < mapData.Length; x++)
+        string[] Map =  mapData.Split("\n");
+        char tile;
+        
+        for (int y = 0; y < Map.Length; y++)
         {
-            for (int y = 0; y < mapData.Length; y++)
+            for (int x = 0; x < Map[y].Length; x++)
             {
-                if (mapData.Length == '#')
+                tile = Map[y][x];
+                Debug.Log("X:" + x + "\nY:" + y);
+                if (tile == '#')
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), wallTile);
                 }
-                else if (mapData.Length == ' ')
+                else if (tile == ' ')
                 {
                     MyTileMap.SetTile(new Vector3Int(x, y, 0), groundTile);
                 }
@@ -74,17 +60,18 @@ public class Test : MonoBehaviour
     }
     void LoadPremadeMap(string Path)
     {
-        string[] lines = File.ReadAllLines(Path);
-        MapString(lines[0].Length, lines.Length);
-        for (int x = 0; x < lines.Length; x++)
+        
+        if (File.Exists(Path))
         {
-
-            for (int y = 0; y < lines.Length; y++)
-            {
-
-                ConvertMapToTilemap(MapString(lines[0].Length, lines.Length));
-            }
+            string lines = File.ReadAllText(Path);
+            ConvertMapToTilemap(lines);
+            Debug.Log("IM HERE");
         }
+
+        
+
+        //MapString();
+        
     }
 
 }

@@ -86,7 +86,7 @@ public class RPGMap : MonoBehaviour
                 }
             }
         }
-        //ruleBorder();
+        ruleBorder();
     }
     string GenerateMapString(int x, int y)
     {
